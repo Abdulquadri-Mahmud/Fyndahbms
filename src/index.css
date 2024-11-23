@@ -78,32 +78,15 @@
 /* dialog */
 /* Dialog overlay styles */
 .dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+  padding: 8px;
 }
 
 /* Dialog box styles */
 .dialog-box {
-  background-color: white;
-  border-radius: 8px;
-  padding: 10;
-  max-width: 400px;
-  width: 90%;
+  overflow: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
-
-/* Close button styles */
-.close-button {
-  color: white;
-  border: none;
-  cursor: pointer;
+.dialog-box::-webkit-scrollbar{
+  width: 3px;
 }

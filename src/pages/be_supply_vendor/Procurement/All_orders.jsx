@@ -106,84 +106,78 @@ export default function All_orders() {
 
     return (
         <div className='bg-zinc-100 p-5 rounded-md'>
-            <div className='flex'>
-                <div className="flex-1">
-                    <div className="w-full">
-                        <h1 className='text-2xl font-medium'>All Orders</h1>
-                        <div className="font-medium text-gray-500 text-sm pt-2 flex items-center gap-1">
-                            <Link to={'/'}>Dashboard</Link>
-                            <span className="">/</span>
-                            <Link to={'/all-orders'}>Procurement Tracking</Link>
-                            <span className="">/</span>
-                            <Link to={'/new-supplier'} className='text-red-700'>All Orders</Link>
-                        </div>
-                        <div className=" border-b text-sm pb-5 mt-8 mon_navs text-gray-500 w-full font-medium flex flex-wrap items-center justify-start gap-5">
-                            <div className="flex items-center gap-2">
-                                <Link to={'/new-supplier'} className='text-red-700'>All Orders</Link>
-                                <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-red-100 text-red-700 text-sm">1000</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Link to={'/new-supplier'} className=''>Pending Orders</Link>
-                                <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200 text-sm">1000</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Link to={'/new-supplier'} className=''>All Orders</Link>
-                                <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200  text-sm">1000</p>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Link to={'/new-supplier'} className=''>All Orders</Link>
-                                <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200  text-sm">1000</p>
-                            </div>
-                        </div>
-                    </div>
-                <div className="mt-5 overflow-x-scroll">
-                    <div className="pb-4 flex justify-between items-center">
-                        <h2 className='font-medium text-xl'>All Order</h2>
-                    </div> 
-                    <div className='max-w-[100%] overflow-auto'>
-                        <table className='w-full'>
-                            <thead className=''>
-                                <tr className={'bg-blue-950 hover:bg-blue-950 text-start'}>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm flex items-center gap-2"><input type="checkbox"/>Order code</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm">Supplier name</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm">Total Items</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm">Total Amount</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm">Status</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm">Delivery date Date</th>
-                                    <th className="py-3 px-3 text-white text-start font-normal text-sm"></th>
-                                </tr>
-                            </thead>
-                            <tbody className='w-full'>
-                                {
-                                    datas.length > 0 && datas.map((data) => {
-                                        return (
-                                            <tr key={data.id} className='relative text-gray-500 text-sm'>
-                                                <td className="py-3 px-3 font-medium flex justify-start items-center gap-2"><input type="checkbox" name="" id="" />{data.orderCode}</td>
-                                                <td className={'py-3 px-3 font-medium text-black'}>{data.supplierName}</td>
-                                                <td className={'py-3 px-3'}>{data.totalItem}</td>
-                                                <td className={'py-3 px-3'}>{data.totalAmount}</td>
-                                                <td className={'py-3 px-3'}>{data.status}</td>
-                                                <td className={``}>
-                                                <div className={`${data.status === 'Shipped' ? ' w-[100px] text-purple-700 flex items-center justify-center gap-2 bg-purple-300 py-1 rounded-full' : 'rounded-full bg-yellow-200 py-1 text-red-800 w-[110px]'} text-sm  text-center font-medium`}>
-                                                    <p> {data.status}</p>
-                                                </div>
-                                                </td>
-                                                <td className={'py-3 px-3'}>{data.deliveryDate}</td>
-                                                <td className={'py-4 flex gap-3 items-center'}>
-                                                    <p className="font-medium text-blue-900">View Details</p>
-                                                    <p className="font-medium text-red-700">Track</p>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    {/* <SuppliersTable/> */}
+            <div className="w-full">
+                <h1 className='text-2xl font-medium'>All Orders</h1>
+                <div className="font-medium text-gray-500 text-sm pt-2 flex items-center gap-1">
+                    <Link to={'/'}>Dashboard</Link>
+                    <span className="">/</span>
+                    <Link to={'/all-orders'}>Procurement Tracking</Link>
+                    <span className="">/</span>
+                    <Link to={'/new-supplier'} className='text-red-700'>All Orders</Link>
                 </div>
-    
+                <div className=" border-b text-sm pb-5 mt-8 mon_navs text-gray-500 w-full font-medium flex flex-wrap items-center justify-start gap-5">
+                    <div className="flex items-center gap-2">
+                        <Link to={'/new-supplier'} className='text-red-700'>All Orders</Link>
+                        <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-red-100 text-red-700 text-sm">1000</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Link to={'/new-supplier'} className=''>Pending Orders</Link>
+                        <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200 text-sm">1000</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Link to={'/new-supplier'} className=''>All Orders</Link>
+                        <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200  text-sm">1000</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Link to={'/new-supplier'} className=''>All Orders</Link>
+                        <p className="w-[50px] h-6 flex justify-center items-center rounded-full bg-gray-200  text-sm">1000</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* table sections */}
+            <div className="mt-5 overflow-x-scroll">
+                <div className="pb-4 flex justify-between items-center">
+                    <h2 className='font-medium text-xl'>All Order</h2>
+                </div> 
+                <div className='w-[100%] overflow-auto'>
+                    <table className='w-full'>
+                        <thead className='w-full'>
+                            <tr className={'bg-blue-950 hover:bg-blue-950 text-start'}>
+                                <th className="py-3 px-3 font-medium text-white text-start flex items-center gap-2"><input type="checkbox"/>Order code</th>
+                                <th className="py-3 px-3 font-medium text-white text-start">Supplier name</th>
+                                <th className="py-3 px-3 font-medium text-white text-start">Total Items</th>
+                                <th className="py-3 px-3 font-medium text-white text-start">Total Amount</th>
+                                <th className="py-3 px-3 font-medium text-white text-start">Status</th>
+                                <th className="py-3 px-3 font-medium text-white text-start">Delivery date Date</th>
+                                <th className="py-3 px-3 font-medium text-white text-start"></th>
+                            </tr>
+                        </thead>
+                        <tbody className='w-full'>
+                            {
+                                datas.length > 0 && datas.map((data) => {
+                                return (
+                                    <tr key={data.id} className='relative text-gray-500 text-sm'>
+                                        <td className="py-3 px-3 font-medium flex justify-start items-center gap-2"><input type="checkbox" name="" id="" />{data.orderCode}</td>
+                                        <td className={'py-3 px-3 font-medium text-black'}>{data.supplierName}</td>
+                                        <td className={'py-3 px-3'}>{data.totalItem}</td>
+                                        <td className={'py-3 px-3'}>{data.totalAmount}</td>
+                                        <td className={``}>
+                                        <div className={`${data.status === 'Shipped' ? ' w-[100px] text-purple-700 flex items-center justify-center gap-2 bg-purple-300 py-1 rounded-full' : 'rounded-full bg-yellow-200 py-1 text-red-800 w-[110px]'} text-sm  text-center font-medium`}>
+                                            <p> {data.status}</p>
+                                        </div>
+                                        </td>
+                                        <td className={'py-3 px-3'}>{data.deliveryDate}</td>
+                                        <td className={'py-4 flex gap-3 items-center'}>
+                                            <p className="font-medium text-blue-900">View Details</p>
+                                            <p className="font-medium text-red-700">Track</p>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

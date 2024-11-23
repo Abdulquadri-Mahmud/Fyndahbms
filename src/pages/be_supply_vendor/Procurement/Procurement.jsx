@@ -137,9 +137,9 @@ export default function Procurement() {
                     <h2 className='font-medium text-xl'>Recent Order</h2>
                     <Link to={'/all-orders'} className='text-sm text-gray-500 flex items-center gap-3'>View all orders <FaLongArrowAltRight /></Link>
                 </div> 
-                <div className='max-w-[100%] overflow-auto'>
+                <div className='w-[100%] overflow-auto'>
                     <table className='w-full '>
-                        <thead className=''>
+                        <thead className='w-full'>
                             <tr className={'bg-blue-950 hover:bg-blue-950 text-start'}>
                                 <th className="py-3 px-3 text-white text-start font-normal text-sm flex items-center gap-2"><input type="checkbox"/>Order code</th>
                                 <th className="py-3 px-3 text-white text-start font-normal text-sm">Supplier name</th>
@@ -159,7 +159,6 @@ export default function Procurement() {
                                             <td className={'py-3 px-3 font-medium text-black'}>{data.supplierName}</td>
                                             <td className={'py-3 px-3'}>{data.totalItem}</td>
                                             <td className={'py-3 px-3'}>{data.totalAmount}</td>
-                                            <td className={'py-3 px-3'}>{data.status}</td>
                                             <td className={``}>
                                             <div className={`${data.status === 'Shipped' ? ' w-[100px] text-purple-700 flex items-center justify-center gap-2 bg-purple-300 py-1 rounded-full' : 'rounded-full bg-yellow-200 py-1 text-red-800 w-[110px]'} text-sm  text-center font-medium`}>
                                                 <p> {data.status}</p>
