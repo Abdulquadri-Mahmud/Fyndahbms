@@ -426,6 +426,16 @@ const AdvancedCalendar = () => {
                     placeholder="Add Purpose"
                     />
                 </div>
+                <div className="">
+                    <h3 className="font-medium">Created by</h3>
+                    <div className="flex items-center gap-2 mt-3">
+                        <div className="w-[45px] h-[45px] bg-slate-200 rounded-full flex items-center">
+                            <img src="/avatar.png" alt="" className='object-fill'/>
+                        </div>
+                        <p className="font-medium">Godwin David</p>
+                    </div>
+                </div>
+
 
                 <div className="flex justify-end gap-2 mt-6">
                     <button
@@ -466,10 +476,10 @@ const AdvancedCalendar = () => {
                 </div>
               </div>
 
-              {selectedEvent.location && (
+              {selectedEvent.other && (
                 <div className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 text-gray-400 mt-1" />
-                  <span>{selectedEvent.location}</span>
+                  <span>{selectedEvent.other}</span>
                 </div>
               )}
 
@@ -477,22 +487,6 @@ const AdvancedCalendar = () => {
                 <div className="border-t pt-4">
                   <h4 className="font-medium mb-2">Purpose</h4>
                   <p className="text-gray-600">{selectedEvent.Purpose}</p>
-                </div>
-              )}
-
-              {selectedEvent.attendees && (
-                <div className="border-t pt-4">
-                  <h4 className="font-medium mb-2">Attendees</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedEvent.attendees.split(',').map((attendee, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-1 bg-gray-100 rounded-full text-sm"
-                      >
-                        {attendee.trim()}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               )}
 
