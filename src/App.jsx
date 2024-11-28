@@ -19,6 +19,11 @@ import Contract_management from "./pages/be_supply_vendor/Supplier/Contract_mana
 import Compliance_verification from "./pages/be_supply_vendor/Supplier/Compliance_verification";
 import Supplier_profile from "./pages/be_supply_vendor/Supplier/Supplier_profile";
 import SearchableSelect from "./components/supplier-vendor-management/test";
+import Scheduling from "./pages/be_front_office/scheduling_appointment/Scheduling";
+
+// import Scheduling from "./pages/be_front_office/scheduling_appointment/Scheduling";
+// import Tickets from "./pages/be_front_office/tickets/Tickets";
+// import SchedulingCalendar from "./pages/be_front_office/scheduling_appointment/calendar-component";
 
 const App = () => {
   return (
@@ -56,10 +61,14 @@ const App = () => {
           <Route path="/compliance-verification" element={<Compliance_verification />} />
           <Route path="/test" element={<SearchableSelect/>} />
 
+          {/* scheduling & appointment */}
+          <Route path="/scheduling" element={<Scheduling/>}/>
+          {/* <Route path="/tickets" element={<Tickets/>}/> */}
+
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 };
 
 export default App;

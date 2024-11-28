@@ -115,8 +115,8 @@ export default function Sidebar() {
       <div className={`transition-all duration-300 p-4 ${isSidebarOpen ? "block" : "hidden"}`}>
         <ul>
           {menuItems.map((item) => (
-            <li key={item.title} className={`relative flex items-center justify-between py-2 ${item.title === 'Supplier & Vendor' ? 'supplierCont' : ''}`}>
-              <Link href={item.url} className="flex items-center gap-2">
+            <li key={item.title} className={`relative flex items-center justify-between py-2 supplierCont ${item.title === 'Supplier & Vendor' ? 'supplierCont' : 'supplierCont'}`}>
+              <Link href={item.url} className="flex items-center gap-2 hover:text-red-400 duration-150 focus:text-red-400">
                 <span>{item.title}</span>
               </Link>
               {
@@ -125,6 +125,16 @@ export default function Sidebar() {
                     <div className="flex flex-col gap-3 px-3 py-2">
                         <Link className='hover:text-red-400' to={'/procurement'}>Procurement Tracking</Link>
                         <Link className='hover:text-red-400' to={'/supplier'}>Supplier</Link>
+                    </div>
+                  </div>
+                )
+              }
+              {
+                item.title === 'Front Office' && (
+                  <div className="officeHover overflow-hidden absolute left-[8rem] z-10 bg-blue-900 w-[0px]">
+                    <div className="flex flex-col gap-3 px-3 py-2">
+                        <Link className='hover:text-red-400' to={'/scheduling'}>Scheduling & appointment</Link>
+                        <Link className='hover:text-red-400' to={'/tickets'}>Tickets</Link>
                     </div>
                   </div>
                 )

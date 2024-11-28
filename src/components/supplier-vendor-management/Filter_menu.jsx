@@ -89,7 +89,7 @@ export default function Filter_menu() {
         </div>
         {
             isOpen && (
-                <div className="dialog-overlay">
+                <div className="dialog-overlay absolute">
                     <div className="dialog-box p-4">
                         <div className="">
                             <h2 className='font-medium text-2xl'>Filters</h2>
@@ -107,7 +107,7 @@ export default function Filter_menu() {
                                     }}
                                     className='border placeholder:font-normal border-gray-300 pl-10 text-black outline-none font-medium rounded-md h-[45px] w-full px-4'/>
                                     <div className="absolute top-11 left-0 px-3">
-                                        <Search className='text-[14px] text-gray-500'/>
+                                        <Search className='text-[12px] text-gray-500'/>
                                     </div>
                                     <div className="absolute top-11 right-0 px-3">
                                         <FaAngleDown className='text-xl text-gray-500'/>
@@ -145,7 +145,7 @@ export default function Filter_menu() {
                                     }}
                                     className='border placeholder:font-normal border-gray-300 pl-10 text-black outline-none font-medium rounded-md h-[45px] w-full px-4'/>
                                     <div className="absolute top-11 left-0 px-3">
-                                        <Search className='text-[14px] text-gray-500'/>
+                                        <Search className='text-[12px] text-gray-500'/>
                                     </div>
                                     <div className="absolute top-11 right-0 px-3">
                                         <FaAngleDown className='text-xl text-gray-500'/>

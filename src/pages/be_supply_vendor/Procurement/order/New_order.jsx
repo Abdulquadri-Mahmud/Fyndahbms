@@ -50,7 +50,7 @@ export default function New_order() {
         {
             isOpen && (
                 <div className=" dialog-overlay fixed top-0 left-0 w-full h-full flex justify-center items-center z-[1000]">
-                    <form onSubmit={handleSubmit} className="dialog-box p-4 bg-white rounded-md md:max-w-[400px] xl:max-h-[600px] md:max-h-[500px] sm:max-h-[400px] max-h-[350px] max-w-[97%] w-full relative">
+                    <form onSubmit={handleSubmit} className="dialog-box p-4 bg-white rounded-md md:max-w-[400px] xl:max-h-[600px] md:max-h-[500px] sm:max-h-[400px] max-h-[400px] max-w-[97%] w-full relative">
                         <div className="">
                             <h2 className="font-medium text-2xl">New Order</h2>
                             <p className="text-sm text-gray-500">Enter the details below to created a new order</p>

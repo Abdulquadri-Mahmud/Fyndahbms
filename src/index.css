@@ -1,6 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import 'react-big-calendar/lib/css/react-big-calendar.css';
+@import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
+@import 'react-datepicker/dist/react-datepicker.css';
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -68,8 +74,14 @@
 }
 
 /* supplier & vendor hover menu */
-.supplierCont:hover > .supplierHover{
+.supplierCont:hover > .supplierHover, .supplierCont:hover > .officeHover{
   width: 220px;
+  /* background-color: ; */
+  transition: all 0.3s;
+  padding-left: 30px;
+}
+.supplierCont:hover > .officeHover{
+  width: 270px;
   /* background-color: ; */
   transition: all 0.3s;
   padding-left: 30px;
@@ -89,4 +101,40 @@
 }
 .dialog-box::-webkit-scrollbar{
   width: 3px;
+}
+
+.nav a{
+  position: relative;
+}
+.nav a::after{
+  content: '';
+  width: 0%;
+  background-color: red;
+  height: 3px;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: all 0.3s;
+}
+
+.nav a:hover::after{
+  width: 100%;
+}
+
+.rbc-toolbar{
+  display: none;
+}
+
+.dialog::-webkit-scrollbar{
+  width: 0px;
+}
+
+/* Style the calendar header row */
+.rbc-header {
+  background-color: rgb(244 244 245);
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: start;
+  padding: 10px 5px;
 }
