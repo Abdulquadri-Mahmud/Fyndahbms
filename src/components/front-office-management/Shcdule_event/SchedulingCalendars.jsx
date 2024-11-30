@@ -34,6 +34,7 @@ const eventCategories = [
   { name: 'Godwing Jacob1', color: 'bg-orange-500' },
   { name: 'Godwing Jacob2', color: 'bg-blue-500' }
 ];
+
 const otherGuest = [
   { name: 'David Jhon', color: 'bg-green-500' },
   { name: 'David Jhon2', color: 'bg-orange-500' },
@@ -316,6 +317,9 @@ const SchedulingCalendars = () => {
                       popperClassName="shadow-lg border border-gray-200 rounded-lg"
                     />
                 </div>
+              </div>
+              <div className="flex justify-end mt-3">
+                <button className="py-2 rounded-md px-3 font-medium border border-blue-900">Confirm date</button>
               </div>
             </div>
           </div>
