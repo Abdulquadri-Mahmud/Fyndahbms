@@ -20,6 +20,11 @@ import Compliance_verification from "./pages/be_supply_vendor/Supplier/Complianc
 import Supplier_profile from "./pages/be_supply_vendor/Supplier/Supplier_profile";
 import SearchableSelect from "./components/supplier-vendor-management/test";
 import Scheduling from "./pages/be_front_office/scheduling_appointment/Scheduling";
+import Checkin from "./pages/be_front_office/scheduling_appointment/Checkin";
+import Inquiry_tracking from "./pages/be_front_office/inquiry_traking/Inquiry_tracking";
+import Resolution_management from "./pages/be_front_office/inquiry_traking/Resolution_management";
+import SchedulingCalendars from "./components/front-office-management/Shcdule_event/SchedulingCalendars";
+import StaffCalendar from "./components/front-office-management/Shcdule_event/StaffCalendar";
 
 // import Scheduling from "./pages/be_front_office/scheduling_appointment/Scheduling";
 // import Tickets from "./pages/be_front_office/tickets/Tickets";
@@ -63,7 +68,14 @@ const App = () => {
 
           {/* scheduling & appointment */}
           <Route path="/scheduling" element={<Scheduling/>}/>
-          {/* <Route path="/tickets" element={<Tickets/>}/> */}
+          <Route path="/checkin" element={<Checkin/>}/>
+          <Route path="/StaffCalendar" element={<StaffCalendar/>}/>
+          <Route path="/calendar" element={<SchedulingCalendars/>}/>
+          
+          {/* Inquiry Tracking */}
+          <Route path="/inquiry-tracking" element={<Inquiry_tracking/>}/>
+          <Route path="/resolution-management" element={<Resolution_management/>}/>
+          <Route path="/view-template" element={<Inquiry_tracking/>}/>
 
         </Route>
       </Routes>

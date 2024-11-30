@@ -110,7 +110,7 @@
   content: '';
   width: 0%;
   background-color: red;
-  height: 3px;
+  height: 2px;
   position: absolute;
   left: 0;
   bottom: -6px;
@@ -137,4 +137,21 @@
   font-weight: 500;
   text-align: start;
   padding: 10px 5px;
+}
+
+tr:nth-child(even){background-color: white;}
+
+.react-datepicker__calendar {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

@@ -134,7 +134,7 @@ export default function Sidebar() {
                   <div className="officeHover overflow-hidden absolute left-[8rem] z-10 bg-blue-900 w-[0px]">
                     <div className="flex flex-col gap-3 px-3 py-2">
                         <Link className='hover:text-red-400' to={'/scheduling'}>Scheduling & appointment</Link>
-                        <Link className='hover:text-red-400' to={'/tickets'}>Tickets</Link>
+                        <Link className='hover:text-red-400' to={'/inquiry-tracking'}>Inquiry tracking</Link>
                     </div>
                   </div>
                 )
