@@ -25,6 +25,9 @@ import Inquiry_tracking from "./pages/be_front_office/inquiry_traking/Inquiry_tr
 import Resolution_management from "./pages/be_front_office/inquiry_traking/Resolution_management";
 import SchedulingCalendars from "./components/front-office-management/Shcdule_event/SchedulingCalendars";
 import StaffCalendar from "./components/front-office-management/Shcdule_event/StaffCalendar";
+import WorkflowTab from "./pages/be_front_office/Test";
+import Feedback from "./pages/be_front_office/inquiry_traking/Feedback";
+import StaffCalendars from "./pages/be_front_office/Test";
 
 // import Scheduling from "./pages/be_front_office/scheduling_appointment/Scheduling";
 // import Tickets from "./pages/be_front_office/tickets/Tickets";
@@ -71,11 +74,13 @@ const App = () => {
           <Route path="/checkin" element={<Checkin/>}/>
           <Route path="/StaffCalendar" element={<StaffCalendar/>}/>
           <Route path="/calendar" element={<SchedulingCalendars/>}/>
+          <Route path="/workflow" element={<StaffCalendars/>}/>
           
           {/* Inquiry Tracking */}
           <Route path="/inquiry-tracking" element={<Inquiry_tracking/>}/>
           <Route path="/resolution-management" element={<Resolution_management/>}/>
           <Route path="/view-template" element={<Inquiry_tracking/>}/>
+          <Route path="/feedback" element={<Feedback/>}/>
 
         </Route>
       </Routes>

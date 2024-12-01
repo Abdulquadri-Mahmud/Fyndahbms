@@ -212,15 +212,7 @@ const SchedulingCalendars = () => {
                 ))}
               </select>
             </div>
-            <div className="flex items-center gap-4">
-              <select className="px-4 py-2  outline-none border rounded-md"
-                    >
-                    <option value="month">Month</option>
-                    <option value="week">Week</option>
-                    <option value="day">Day</option>
-                    <option value="agenda">Agenda</option>
-                    </select>
-                </div>
+            {/*  */}
             </div>
             {
               selectedValue === 'option1' ? (

@@ -24,7 +24,8 @@ const StaffCalendar = () => {
   // Sample staff data
   const staffMembers = [
     { id: 1, name: 'Godwin Jacob', role: 'Web Designer' },
-    { id: 2, name: 'David Gabriel', role: 'Web Developer' }
+    { id: 2, name: 'David Gabriel', role: 'Web Developer' },
+    { id: 3, name: 'David Gabriel', role: 'Web Developer' }
   ];
 
   // Sample events data
@@ -32,14 +33,22 @@ const StaffCalendar = () => {
     {
       id: 1,
       staffId: 1,
-      title: 'Meeting with Client for new project on web design',
+      title: 'Meeting with Client for new project on web designerd',
       date: '2024-12-11',
       startTime: '8:00am',
       endTime: '9:00am'
     },
     {
       id: 2,
-      staffId: 1,
+      staffId: 2,
+      title: 'Meeting with Client for new project on web design',
+      date: '2024-12-13',
+      startTime: '9:00am',
+      endTime: '10:00am'
+    },
+    {
+      id: 3,
+      staffId: 3,
       title: 'Meeting with Client for new project on web design',
       date: '2024-12-13',
       startTime: '8:00am',
@@ -130,6 +139,8 @@ const StaffCalendar = () => {
     setShowModal(false);
   };
 
+  
+
   return (
     <div className="p-6">
       <div className="border rounded-lg w-full">
@@ -164,16 +175,17 @@ const StaffCalendar = () => {
                         {event.startTime} - {event.endTime}
                       </div>
                       {event.title}
+                      {
+                        event.title === '' ? (
+                          <button variant="ghost" size="sm"
+                            className="absolute bottom-2 right-2"
+                            onClick={() => addEvent(staff.id, date.toISOString().split('T')[0])}>
+                            <Plus className="w-4 h-4" />
+                          </button>
+                        ) : ''
+                      }
                     </div>
                   ))}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="absolute bottom-2 right-2"
-                    onClick={() => addEvent(staff.id, date.toISOString().split('T')[0])}
-                  >
-                    <Plus className="w-4 h-4" />
-                  </Button>
                 </div>
               );
             })}
@@ -362,55 +374,6 @@ const StaffCalendar = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      {/* <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              {selectedEvent ? 'Edit Event' : 'Add New Event'}
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Event Title</label>
-              <Input
-                value={newEvent.title}
-                onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-                placeholder="Enter event title"
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Start Time</label>
-                <Input
-                  value={newEvent.startTime}
-                  onChange={(e) => setNewEvent({ ...newEvent, startTime: e.target.value })}
-                  placeholder="9:00am"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">End Time</label>
-                <Input
-                  value={newEvent.endTime}
-                  onChange={(e) => setNewEvent({ ...newEvent, endTime: e.target.value })}
-                  placeholder="10:00am"
-                />
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowModal(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSaveEvent}>
-              {selectedEvent ? 'Update' : 'Create'} Event
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog> */}
     </div>
   );
 };

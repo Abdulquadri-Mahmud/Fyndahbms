@@ -122,7 +122,7 @@
 }
 
 .rbc-toolbar{
-  display: none;
+  /* display: none; */
 }
 
 .dialog::-webkit-scrollbar{

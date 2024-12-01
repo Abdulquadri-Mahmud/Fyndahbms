@@ -116,13 +116,26 @@ export default function Inquiry_tracking() {
     }
   };
 
+  const getBackgroundColor = (status) => {
+    switch (status) {
+      case "Low":
+        return "bg-purple-200 h-[30px] w-[80px] text-purple-900 font-medium rounded-full py-1 text-center"; // Tailwind: light green
+      case "Medium":
+        return "bg-yellow-100 h-[30px] w-[80px] text-red-900 py-1 font-medium rounded-full text-center"; // Tailwind: light yellow
+      case "High":
+        return "bg-red-300 h-[30px] text-red-900 w-[80px] font-medium rounded-full  py-1 text-center"; // Tailwind: light red
+      default:
+        return "bg-gray-100 h-[30px] w-[80px] font-medium rounded-full py-1 text-center"; // Default background
+    }
+  };
+
   return (
     <div className='p-4'>
       <h1 className="text-2xl font-medium">Inquiry handling</h1>
         <div className="nav mt-6 w-full rounded-md bg-white py-3 font-medium px-3 flex items-center gap-4">
             <Link to={'/inquiry-tracking'} className='pl-3 text-red-500'>Inquiry tracking</Link>
             <Link to={'/resolution-management'} className='hover:text-red-500'>Resolution management</Link>
-            <Link to={'/feedback'} className='hover:text-red-500'>Resolution management</Link>
+            <Link to={'/feedback'} className='hover:text-red-500'>Feedback</Link>
         </div>
         <div className="flex justify-between items-center">
             <h1 className="my-5 font-medium text-2xl">Inquiry tracking</h1>
@@ -171,7 +184,11 @@ export default function Inquiry_tracking() {
                       </td>
                       <td className={'py-2 px-2 text-gray-500 font-normal'}>{data.subject}</td>
                       <td className={'py-2 px-2 text-gray-500 font-normal'}>{data.type}</td>
-                      <td className={'py-2 px-2 text-gray-500 font-normal'}>{data.urgency}</td>
+                      <td className={`text-gray-500 font-normal`}>
+                        <p className={`${getBackgroundColor(data.urgency)}`}>
+                          {data.urgency}
+                        </p>
+                      </td>
                       <td className={'py-2 px-2'}>{data.date}</td>
                       <td>
                           <Inquiry_modal data={data}/>
