@@ -16,6 +16,7 @@ import { enUS } from 'date-fns/locale';
 import { Filter, Search } from 'lucide-react';
 import { IoMdSearch } from 'react-icons/io';
 import StaffCalendar from './StaffCalendar';
+import { Link } from 'react-router-dom';
 
 const locales = {
   'en-US': enUS
@@ -135,41 +136,15 @@ const SchedulingCalendars = () => {
     };
   };
 
-  // Options for the select input
-  const options = [
-    { value: 'option1', label: 'Calendar View' },
-    { value: 'option2', label: 'Staff View' },
-  ];
-
-  // State to track the selected value
-  const [selectedValue, setSelectedValue] = useState('option1');
-  const [valueExists, setValueExists] = useState(false);
-
-  // Check if the value exists in the options
-  const checkValueExists = (value) => {
-      const exists = options.some((option) => option.value === value);
-      setValueExists(exists); // Update state
-      return exists; // Return true/false
-  };
-
-  // Handle select change
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setSelectedValue(value); // Update selected value
-    checkValueExists(value); // Check if the value exists
-
-    console.log(event);
-    
-  };
-
   const today = new Date();
     const formattedDate = new Intl.DateTimeFormat("en-US", {
         month: "long",
         year: "numeric",
     }).format(today);
     
-    console.log(selectedValue);
-    console.log(valueExists);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
     
   return (
     <div className="mt-5 bg- rounded-lg shadow-sm">
@@ -196,46 +171,46 @@ const SchedulingCalendars = () => {
               </button>
               {/* Category filters dropdown would go here */}
             </div>
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
-              <input type="text" placeholder="Search events..."
-                  className="pl-10 pr-4 py-2 outline-none border rounded-md w-64"
-                  value={filters.search} onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}/>
+              <div className="relative">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                <input type="text" placeholder="Search events..."
+                    className="pl-10 pr-4 py-2 outline-none border rounded-md w-64"
+                    value={filters.search} onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}/>
+              </div>
+              {/* dropdown menu */}
+              <div className='relative'>
+                <button type="button" className="text-black font-medium border p-2 rounded-md" onClick={toggleDropdown}>
+                  Calendar view
+                </button>
+
+                {isOpen && (
+                  <div className="absolute md:right-0 font-medium z-10 mt-2 w-48 bg-white rounded-md shadow-lg">
+                    <div className="py-1">
+                      <Link to="/scheduling" className="block px-4 py-2">
+                        Calendar view
+                      </Link>
+                      <Link to="/staff-reviews" className="block px-4 py-2">
+                        Staff view
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-                <select id="selectInput" value={selectedValue} onChange={handleChange}
-                className="px-4 py-2 border outline-none rounded-md">
-                {options.map(({ value, label }) => (
-                  <option key={value} value={value}>
-                      {label}
-                  </option>
-                ))}
-              </select>
+            <div className="h-[80vh] w-full">
+              <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                onSelectSlot={handleSelectSlot}
+                onSelectEvent={handleSelectEvent}
+                selectable
+                eventPropGetter={eventStyleGetter}
+                tooltipAccessor={event => event.title}
+                className="rounded-lg shadow-sm"
+              />
             </div>
-            {/*  */}
-            </div>
-            {
-              selectedValue === 'option1' ? (
-                <div className="h-screen w-full max-h-[600px] mt-3">
-                  <Calendar
-                    localizer={localizer}
-                    events={events}
-                    startAccessor="start"
-                    endAccessor="end"
-                    onSelectSlot={handleSelectSlot}
-                    onSelectEvent={handleSelectEvent}
-                    selectable
-                    eventPropGetter={eventStyleGetter}
-                    tooltipAccessor={event => event.title}
-                    className="rounded-lg shadow-sm"
-                  />
-                </div>
-              ) : (
-                <staffCalendarContext.Provider value={events}>
-                  <StaffCalendar event={events}/>
-                </staffCalendarContext.Provider>
-              )
-            }
         </div>
 
 
