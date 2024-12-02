@@ -3,19 +3,41 @@ import { addDays, format, startOfWeek, isSameDay } from "date-fns";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import DatePicker from "react-datepicker";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import { IoIosArrowDown, IoMdSearch } from "react-icons/io";
+import { MdOutlineCancel } from "react-icons/md";
+
+const otherGuest = [
+  { name: 'David Jhon',},
+  { name: 'David Jhon2',},
+  { name: 'David Jhon3',}
+];
+const assignStaff = [
+  { name: 'Godwin David',},
+  { name: 'Godwin David2',},
+  { name: 'Godwin David3',}
+];
 
 const StaffReviews = () => {
   const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date()));
 
   // Modal state
-  const [isModalOpen, setIsModalOpen] = useState(false); // Add Event modal
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false); // View Event modal
+  // const [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(new Date()));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [newEventTitle, setNewEventTitle] = useState("");
-  const [newEventStartTime, setNewEventStartTime] = useState("09:00"); // Default start time
-  const [newEventEndTime, setNewEventEndTime] = useState("10:00"); // Default end time
-  const [eventToView, setEventToView] = useState(null);
+  const [newEventGuest, setNewEventGuest] = useState("");
+  const [newEventStaff, setNewEventStaff] = useState("");
+  const [newEventEmail, setNewEventEmail] = useState("");
+  const [newEventTime, setNewEventTime] = useState("");
+  const [newEventMinute, setNewEventMinute] = useState("");
+  const [newEventStartDate, setNewEventStartDate] = useState(new Date());
+  const [newEventStartTime, setNewEventStartTime] = useState(new Date());
+  const [newEventEndDate, setNewEventEndDate] = useState(new Date());
+  const [newEventEndTime, setNewEventEndTime] = useState(new Date());
 
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,8 +49,8 @@ const StaffReviews = () => {
       name: "Godwin Jacob",
       title: "Web Designer",
       events: [
-        { date: "2024-12-12", title: "Meeting with Client", startTime: "10:00", endTime: "11:00" },
-        { date: "2024-12-14", title: "Code Review", startTime: "14:00", endTime: "15:00" },
+        { start: new Date(), end: new Date(),date: "2024-12-12", guest: '', assign: '',title: "Meeting with Client", startTime: "10:00", endTime: "11:00" },
+        { start: new Date(), end: new Date(),date: "2024-12-14",guest: '', assign: '', title: "Code Review", startTime: "14:00", endTime: "15:00" },
       ],
     },
     {
@@ -36,8 +58,8 @@ const StaffReviews = () => {
       name: "David Gabriel",
       title: "Web Developer",
       events: [
-        { date: "2024-12-11", title: "Design Presentation", startTime: "09:00", endTime: "10:00" },
-        { date: "2024-12-13", title: "New Project Launch", startTime: "11:00", endTime: "12:00" },
+        { start: new Date(), end: new Date(),date: "2024-12-11",guest: '', assign: '', title: "Design Presentation", startTime: "09:00", endTime: "10:00" },
+        { start: new Date(), end: new Date(),date: "2024-12-13",guest: '', assign: '', title: "New Project Launch", startTime: "11:00", endTime: "12:00" },
       ],
     },
   ]);
@@ -50,25 +72,12 @@ const StaffReviews = () => {
   const getDaysOfWeek = () => Array.from({ length: 5 }).map((_, i) => addDays(currentWeekStart, i));
   const daysOfWeek = getDaysOfWeek();
 
-  const handleSelectSlot = ({ start }) => {
-    // setSelectedEvent(null);
-    setNewEvent({
-      title: '',
-      guest: '',
-      email: '',
-      time: '30',
-      minute: '',
-      start,
-      end: new Date(start.getTime() + 60 * 60 * 1000),
-      category: 'Other'
-    });
-    setShowModal(true);
-  };
-  
   // Open modal for adding a new event
   const openModal = (date, staff) => {
     setSelectedDate(date);
     setSelectedStaff(staff);
+    setNewEventStartDate(date);
+    setNewEventEndDate(date);
     setIsModalOpen(true);
   };
 
@@ -82,40 +91,74 @@ const StaffReviews = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setNewEventTitle("");
-    setNewEventStartTime("09:00");
-    setNewEventEndTime("10:00");
+    setNewEventGuest('');
+    setNewEventStaff('');
+    setNewEventEmail('');
+    setNewEventTime('');
+    setNewEventMinute('');
   };
 
   const closeViewModal = () => {
     setIsViewModalOpen(false);
   };
 
-  // Add a new event
-  const addEvent = () => {
-    if (!newEventTitle.trim()) return;
-
-    setStaffEvents((prevEvents) =>
-      prevEvents.map((staff) => {
-        if (staff.id === selectedStaff.id) {
-          return {
-            ...staff,
-            events: [
-              ...staff.events,
-              { 
-                date: format(selectedDate, "yyyy-MM-dd"), 
-                title: newEventTitle, 
-                startTime: newEventStartTime, 
-                endTime: newEventEndTime 
-              },
-            ],
-          };
-        }
-        return staff;
-      })
-    );
-
-    closeModal();
+  const createStaffEvent = () => {
+    // Open the modal with no pre-selected date or staff
+    setSelectedDate(new Date()); // Default to today for convenience
+    setSelectedStaff(null); // No specific staff selected
+    setNewEventStartDate(new Date()); // Default to today
+    setNewEventEndDate(new Date()); // Default to today
+    setIsModalOpen(true); // Open the modal
   };
+  
+  //Add Event Logic
+  const addEvent = () => {
+    if (!newEventTitle.trim()) {
+      alert("Please provide a title for the event.");
+      return;
+    }
+  
+    const newEvent = {
+      date: format(newEventStartDate, "yyyy-MM-dd"),
+      title: newEventTitle,
+      guest: newEventGuest,
+      assign: newEventStaff,
+      email: newEventEmail,
+      time: newEventTime,
+      minute: newEventMinute,
+      startTime: format(newEventStartTime, "HH:mm"),
+      endTime: format(newEventEndTime, "HH:mm"),
+    };
+  
+    // Add the event to a specific staff or create a new entry if no staff is selected
+    if (selectedStaff) {
+      setStaffEvents((prevEvents) =>
+        prevEvents.map((staff) => {
+          if (staff.id === selectedStaff.id) {
+            return {
+              ...staff,
+              events: [...staff.events, newEvent],
+            };
+          }
+          return staff;
+        })
+      );
+    } else {
+      // If no specific staff is selected, add the event to a default staff or create a new entry
+      setStaffEvents((prevEvents) => [
+        ...prevEvents,
+        {
+          id: prevEvents.length + 1,
+          name: newEventStaff, // Default name for unassigned staff
+          title: "N/A",
+          events: [newEvent],
+        },
+      ]);
+    }
+  
+    closeModal(); // Close the modal after adding the event
+  };
+  
 
   // Filter staff events based on search query
   const filteredStaffEvents = staffEvents.map(staff => ({
@@ -130,6 +173,10 @@ const StaffReviews = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
+  const notification = () => {
+
+  }
+
   return (
     <div className="p-4">
       <h1 className='text-2xl font-medium'>Scheduling</h1>
@@ -139,7 +186,7 @@ const StaffReviews = () => {
       </div>
       <div className="flex justify-between items-center my-4">
         <h1 className="text-2xl font-semibold text-gray-800">Calendar Booking</h1>
-        <Button onClick={() => handleSelectSlot({ start: new Date() })} className="bg-blue-900 hover:bg-indigo-700">
+        <Button onClick={createStaffEvent} className="bg-blue-900 hover:bg-indigo-700">
           Schedule event
         </Button>
       </div>
@@ -240,32 +287,144 @@ const StaffReviews = () => {
       {isModalOpen &&
         ReactDOM.createPortal(
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-md shadow-lg w-96">
+            <div className="bg-white relative p-4 py-4 rounded-md shadow-lg w-96">
               <h2 className="text-lg font-semibold mb-4">Add Event</h2>
-              <p className="mb-2">
-                <strong>Date:</strong> {format(selectedDate, "PPP")}
-              </p>
-              <p className="mb-4">
-                <strong>Staff:</strong> {selectedStaff.name}
-              </p>
-              <input type="text" placeholder="Event Title" className="w-full p-2 border rounded mb-4"
-                value={newEventTitle} onChange={(e) => setNewEventTitle(e.target.value)}/>
-              <div className="flex gap-4 mb-4">
-                <input type="time" className="w-full p-2 border rounded"
-                  value={newEventStartTime} onChange={(e) => setNewEventStartTime(e.target.value)}/>
-                <input type="time" className="w-full p-2 border rounded"
-                  value={newEventEndTime} onChange={(e) => setNewEventEndTime(e.target.value)}/>
+              {/* DatePicker for Start Date & Time */}
+              <label className="block font-medium mb-2">Time</label>
+              
+              <div className="flex gap-2">
+                <div className="flex gap-2">
+                  <DatePicker
+                    selected={newEventStartDate}
+                    onChange={(date) => setNewEventStartDate(date)}
+                    dateFormat="MMMM d"
+                    className="border rounded-lg px-2 text-sm font-medium py-2 outline-none w-full"
+                        calendarClassName="bg-white absolute left-0 border border-gray-300 rounded-lg shadow-lg p-4"
+                        dayClassName={(date) =>
+                          "text-center p-2 rounded-full hover:bg-indigo-100 transition ease-in-out"
+                        }
+                        popperClassName="shadow-lg border border-gray-200 rounded-lg"
+                  />
+                    <DatePicker
+                      selected={newEventStartTime}
+                      onChange={(date) => setNewEventStartTime(date)}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="h:mm aa"
+                      className="border rounded-lg px-2 text-sm font-medium py-2 outline-none w-[70px]"
+                          calendarClassName="bg-white absolute left-0 border border-gray-300 rounded-lg shadow-lg p-4"
+                          dayClassName={(date) =>
+                            "text-center p-2 rounded-full hover:bg-indigo-100 transition ease-in-out"
+                          }
+                          popperClassName="shadow-lg border border-gray-200 rounded-lg"/>
+                    
+                </div>
+
+                {/* DatePicker for Start Time */}
+                  <div className="flex gap-2">
+                      <DatePicker
+                        selected={newEventEndDate}
+                        onChange={(date) => setNewEventEndDate(date)}
+                        dateFormat="MMMM d"
+                        className="border rounded-lg px-2 text-sm font-medium py-2 outline-none w-full"
+                            calendarClassName="bg-white absolute right-0 border border-gray-300 rounded-lg shadow-lg p-4"
+                            dayClassName={(date) =>
+                              "text-center p-2 rounded-full hover:bg-indigo-100 transition ease-in-out"
+                            }
+                            popperClassName="shadow-lg border border-gray-200 rounded-lg"
+                      />
+                    <DatePicker
+                    selected={newEventEndTime}
+                    onChange={(date) => setNewEventEndTime(date)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    className="border rounded-lg px-2 text-sm font-medium py-2 outline-none w-[70px]"
+                        calendarClassName="bg-white absolute right-0 border border-gray-300 rounded-lg shadow-lg p-4"
+                        dayClassName={(date) =>
+                          "text-center p-2 rounded-full hover:bg-indigo-100 transition ease-in-out"
+                        }
+                        popperClassName="shadow-lg border border-gray-200 rounded-lg"
+                  />
+                  </div>
               </div>
+
+              <div className='relative mt-4'>
+                <label className="block font-medium mb-1">Assign</label>
+                <Select value={newEventStaff}
+                  onValueChange={(value) => setNewEventStaff(value)}>
+                  <SelectTrigger className="relative text-start pl-9 font-medium w-full border h-[40px] text-black border-gray-300 rounded-md py-2 px-4 shadow-sm">
+                    {/* Show selected value or placeholder */}
+                    <SelectValue>{newEventStaff || "Select a guest"}</SelectValue>
+                    <IoMdSearch className="absolute top-2.5 left-2 text-gray-500 text-xl" />
+                    <IoIosArrowDown className="absolute top-2.5 right-2 text-gray-500 text-xl" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border border-gray-200 z-10 rounded-md shadow-lg max-h-56 overflow-auto">
+                    {assignStaff.map((staff) => (
+                      <SelectItem
+                        key={staff.name}
+                        value={staff.name}
+                        className="p-2 font-normal text-sm hover:bg-indigo-100 cursor-pointer rounded-md"
+                      >
+                        {staff.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+            </div>
+            <div className="mt-4">
+              <h2 className="font-medium text-sm">Notification</h2>
+              <div className="flex gap-2 mt-2 items-center">
+                  {/* nottification */}
+                  <select value={newEventEmail} onChange={(e) => setNewEventEmail(e.target.value)} className='w-[90px] outline-none font-medium text-sm px-3 py-2 border rounded-md'>
+                      <option value="email">Email</option>
+                  </select>
+                  <input value={newEventTime} onChange={(e) => setNewEventTime(e.target.value)} type="text" className='w-[40px] text-center outline-none border rounded-md py-2'/>
+                  <select value={newEventMinute} onChange={(e) => setNewEventMinute(e.target.value)} className='w-[100px] outline-none font-medium text-sm px-3 py-2 border rounded-md'>
+                      <option value="minutes">Minutes</option>
+                  </select>
+                  <p onClick={notification} className="text-blue-900 font-medium text-sm pl-3">Add notification</p>
+              </div>
+            </div>
+
+              <div className='relative mt-4'>
+                <label className="block font-medium mb-1">Other guest</label>
+                <Select value={newEventGuest}
+                  onValueChange={(value) => setNewEventGuest(value)}>
+                  <SelectTrigger className="relative text-start pl-9 font-medium w-full border h-[40px] text-black border-gray-300 rounded-md py-2 px-4 shadow-sm">
+                    {/* Show selected value or placeholder */}
+                    <SelectValue>{newEventGuest || "Select a guest"}</SelectValue>
+                    <IoMdSearch className="absolute top-2.5 left-2 text-gray-500 text-xl" />
+                    <IoIosArrowDown className="absolute top-2.5 right-2 text-gray-500 text-xl" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border border-gray-200 rounded-md shadow-lg max-h-56 overflow-auto">
+                    {otherGuest.map((guest) => (
+                      <SelectItem
+                        key={guest.name}
+                        value={guest.name}
+                        className="p-2 font-normal text-sm hover:bg-indigo-100 cursor-pointer rounded-md"
+                      >
+                        {guest.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+            </div>
+
+              <div className="mt-4">
+                <p className="font-medium">Purpose</p>
+                <textarea type="text" placeholder="Purpose" className="font-medium outline-none h-[80px] w-full p-2 border rounded mb-4"
+                  value={newEventTitle} onChange={(e) => setNewEventTitle(e.target.value)}/>
+              </div>
+
               <div className="flex justify-end gap-2">
-                <button className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                  onClick={closeModal}>
-                  Cancel
-                </button>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  onClick={addEvent}>
-                  Add
-                </button>
+                <button className="px-6 py-2 bg-blue-900 text-white rounded hover:bg-blue-800" onClick={addEvent}>Create event</button>
               </div>
+              <button className="absolute top-3 right-3 text-gray-500 text-xl" onClick={closeModal}><MdOutlineCancel /></button>
             </div>
           </div>,
           document.body

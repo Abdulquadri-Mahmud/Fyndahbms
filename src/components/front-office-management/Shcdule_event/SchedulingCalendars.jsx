@@ -331,7 +331,7 @@ const SchedulingCalendars = () => {
                 <SelectTrigger className='pl-8 font-medium'>
                   <SelectValue placeholder="Add other guest"/>
                 </SelectTrigger>
-                <SelectContent z>
+                <SelectContent>
                   {otherGuest.map(oter => (
                     <SelectItem key={oter.name} value={oter.name}>
                       {oter.name}
